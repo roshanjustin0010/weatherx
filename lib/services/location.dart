@@ -1,25 +1,19 @@
-import 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart'
+    '';
 
-Future<Position> _determinePosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
+class Location {
+  double latitude;
+  double longitude;
 
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    return Future.error('Location services are disabled.');
-  }
+  Future<void> getCurrentLocation() async {
+    try {
+      Position position = await Geolocator()
+          .getCurrentPosition(desiredAccuracy: LocationAccuracy.low);
 
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Location permissions are denied');
+      latitude = position.latitude;
+      longitude = position.longitude;
+    } catch (e) {
+      print(e);
     }
   }
-
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-  return await Geolocator.getCurrentPosition();
 }
