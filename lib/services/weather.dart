@@ -1,7 +1,7 @@
 import 'package:weatherx/services/location.dart';
 import 'package:weatherx/services/networking.dart';
 
-const apiKey = 'a7b24b79bffcaf7e8fce9251a8806437';
+const apiKey = '//use your api key from signin to open weather api';
 const openWeatherMapURL = 'https://api.openweathermap.org/data/2.5/weather';
 
 class WeatherModel {
